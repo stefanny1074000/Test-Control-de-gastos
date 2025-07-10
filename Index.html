@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Registro de Gastos Diarios</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f4f4f4;
+      margin: 0;
+      padding: 20px;
+    }
+
+    h1 {
+      text-align: center;
+      color: #333;
+    }
+
+    .container {
+      max-width: 500px;
+      margin: auto;
+      background: white;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    }
+
+    label {
+      display: block;
+      margin-top: 10px;
+      font-weight: bold;
+    }
+
+    input[type="text"],
+    input[type="number"] {
+      width: 100%;
+      padding: 8px;
+      margin-top: 5px;
+      border-radius: 4px;
+      border: 1px solid #ccc;
+    }
+
+    button {
+      margin-top: 15px;
+      padding: 10px;
+      width: 100%;
+      background-color: #28a745;
+      color: white;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 16px;
+    }
+
+    button:hover {
+      background-color: #218838;
+    }
+
+    .lista-gastos {
+      margin-top: 20px;
+    }
+
+    ul {
+      list-style-type: none;
+      padding: 0;
+    }
+
+    li {
+      background: #e9ffe8;
+      margin-bottom: 5px;
+      padding: 10px;
+      border-left: 5px solid #28a745;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <h1>Gastos Diarios</h1>
+    <form id="formGasto">
+      <label for="descripcion">Descripción:</label>
+      <input type="text" id="descripcion" placeholder="Ej: Café, transporte..." required />
+
+      <label for="monto">Monto ($):</label>
+      <input type="number" id="monto" step="0.01" min="0" required />
+
+      <button type="submit">Agregar Gasto</button>
+    </form>
+
+    <div class="lista-gastos">
+      <h3>Tus Gastos:</h3>
+      <ul id="lista"></ul>
+    </div>
+  </div>
+
+  <script>
+    const form = document.getElementById("formGasto");
+    const lista = document.getElementById("lista");
+
+    form.addEventListener("submit", function(event) {
+      event.preventDefault(); // Evita que se recargue la página
+
+      const descripcion = document.getElementById("descripcion").value;
+      const monto = document.getElementById("monto").value;
+
+      if (descripcion && monto > 0) {
+        const item = document.createElement("li");
+        item.textContent = `${descripcion} - $${parseFloat(monto).toFixed(2)}`;
+        lista.appendChild(item);
+
+        // Limpiar campos
+        form.reset();
+      } else {
+        alert("Por favor ingresa una descripción y un monto válido.");
+      }
+    });
+  </script>
+
+</body>
+</html>
